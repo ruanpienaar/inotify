@@ -1,2 +1,2 @@
 # inotify
-Get file system notifications ( CREATE / MODIFY / DELETE ) etc
+Get operating file system notifications ( CREATE / MODIFY / DELETE ) etc
