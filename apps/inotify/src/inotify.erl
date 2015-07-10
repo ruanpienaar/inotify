@@ -20,6 +20,9 @@ start() ->
     {ok,Pid}.
 
 routes() ->
+
+	{ok,IgnoreList} = application:get_env(inotify, 
+
     [
      {'_',
         [

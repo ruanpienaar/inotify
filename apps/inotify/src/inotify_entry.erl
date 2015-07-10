@@ -30,15 +30,19 @@ content_types_accepted(Req, State) ->
 create_entry(Req, State) ->
 	N = erlang:now(),
 	{ok,Body,Req1} = cowboy_req:body(Req),
-	io:format("~p\n",[Body]),
 	Str = binary_to_list(Body),
 	[Dir,Actions,File] = string:tokens(Str, " "),
-	ok=
-	mnesia:dirty_write(?MODULE,#?MODULE{now=N,
-										dir=Dir,
-										actions=Actions,
-										file=File}),
-	{true, Req1, State}.
+	case File =:= "erlang.log.1" of 
+		true ->
+			{true, Req1, State};
+		false ->
+			ok=
+			mnesia:dirty_write(?MODULE,#?MODULE{now=N,
+												dir=Dir,
+												actions=Actions,
+												file=File}),
+			{true, Req1, State}
+	end.
 
 hello_to_text(Req, State) ->
 	{<<"text">>, Req, State}.
