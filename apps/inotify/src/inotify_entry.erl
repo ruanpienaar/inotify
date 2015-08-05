@@ -1,4 +1,7 @@
 -module(inotify_entry).
+
+-include_lib("inotify/include/inotify.hrl").
+
 -export([init/2]).
 -export([allowed_methods/2]).
 -export([content_types_provided/2]).
@@ -9,11 +12,6 @@
 		 create_table/0,
 		 create_entry/2]).
 
--record(?MODULE, {now,
-				  dir,
-				  actions,
-				  file
-				 }).
 
 init(Req, Opts) ->
 	{cowboy_rest, Req, Opts}.

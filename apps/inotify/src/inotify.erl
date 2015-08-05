@@ -4,6 +4,8 @@
     ]).
 
 start() ->
+    inotify_entry:setup(),
+
     {ok,Port} = port(),
     io:format("......\nStarting cowboy on ~p\n......\n",[Port]),
     Routes    = routes(),
@@ -21,13 +23,14 @@ start() ->
 
 routes() ->
 
-	{ok,IgnoreList} = application:get_env(inotify, 
+	% {ok,IgnoreList} = application:get_env(inotify, 
 
     [
      {'_',
         [
-            {"/", cowboy_static, {priv_file, crell, "www/index.html"}},
+            {"/", cowboy_static, {priv_file, inotify, "www/index.html"}},
             {"/entry", inotify_entry, []},
+            {"/list", inotify_list_entries, []},
             {"/[...]", cowboy_static, {priv_dir, inotify, "/www"}}
         ]
      }
